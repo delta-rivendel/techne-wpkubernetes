@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: hygia
+  namespace: hygia
+  labels:
+    app: hygia
+spec:
+  selector:
+    matchLabels:
+      app: hygia
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hygia
+        tier: frontend
+    spec:
+      containers:
+      - image: lazevedorivendel/techne-teste:hygia
+        name: hygia
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: wptechneprd.cgexaccvir8f.us-east-1.rds.amazonaws.com
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        ports:
+        - containerPort: 80
+          name: hygia
+        volumeMounts:
+        - name: efs-hygia
+          mountPath: /usr/share/nginx/hygia
+      volumes:
+      - name: efs-hygia
+        persistentVolumeClaim:
+          claimName: efs-hygia-claim

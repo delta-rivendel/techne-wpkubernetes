@@ -1,0 +1,27 @@
+# Criação do Secret
+
+kubectl -n blog-hygia create secret generic mysql-pass --from-literal=password=L6XF8jRn
+
+
+#Comandos docker
+
+#Build
+
+docker build -t blog-hygia-prd-04 .
+
+#Tag
+
+docker tag blog-hygia-prd-04:latest 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_blog_hygia:blog-hygia-prd-04
+
+#Push ECR
+
+docker push 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_blog_hygia:blog-hygia-prd-04
+
+
+blog.hygia.com.br   CNAME
+OLD=alb-wordpress-techne-826927862.us-east-1.elb.amazonaws.com
+NEW=d1v7ixevyto2qh.cloudfront.net
+
+www.hygia.com.br A 
+OLD=alb-wordpress-techne-826927862.us-east-1.elb.amazonaws.com
+NEW=d2iq32dkizq2x2.cloudfront.net

@@ -1,0 +1,18 @@
+# Criação do Secret
+
+kubectl -n intra-techne create secret generic mysql-pass --from-literal=password=L6XF8jRn
+
+
+#Comandos docker
+
+#Build
+
+docker build -t intra-techne-prd .
+
+#Tag
+
+docker tag intra-techne-prd:latest 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_intratechne:intra-techne-prd
+
+#Push ECR
+
+docker push 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_intratechne:intra-techne-prd

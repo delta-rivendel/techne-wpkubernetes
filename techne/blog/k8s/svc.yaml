@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-techne
+  namespace: blog-techne
+  labels:
+    app: blog-techne
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+  selector:
+    app: blog-techne
+    tier: frontend
+  type: LoadBalancer

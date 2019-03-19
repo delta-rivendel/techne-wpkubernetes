@@ -1,0 +1,18 @@
+# Criação do Secret
+
+kubectl -n esocial-techne create secret generic mysql-pass --from-literal=password=L6XF8jRn
+
+
+#Comandos docker
+
+#Build
+
+docker build -t esocial-techne-prd .
+
+#Tag
+
+docker tag esocial-techne-prd:latest 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_esocialtechne:esocial-techne-prd
+
+#Push ECR
+
+docker push 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_esocialtechne:esocial-techne-prd

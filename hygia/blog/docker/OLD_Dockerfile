@@ -1,0 +1,35 @@
+FROM ubuntu:16.04
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt update -y
+
+RUN apt install nginx -y
+
+RUN apt-get install -y locales php-pear php-apcu php-cli php-common php-curl php-fpm php-gd php-imagick php-imap php-intl php-json php-ldap php-mcrypt php-memcache php-mysqlnd php-pspell php-readline php-recode php-snmp php-tidy php-xmlrpc php-xsl php-zip supervisor
+
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+RUN dpkg-reconfigure locales
+
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+
+COPY blog_hygia /usr/share/nginx/blog_hygia
+
+COPY snippets /etc/nginx/snippets
+
+COPY ssl /etc/nginx/ssl
+
+RUN rm -rf /etc/nginx/sites-available/*
+
+COPY blog_hygia.conf /etc/nginx/conf.d/blog_hygia.conf
+
+COPY start.sh /start.sh
+
+RUN mkdir -p /var/run/php
+
+CMD ["./start.sh"]
+
+EXPOSE 80 443
