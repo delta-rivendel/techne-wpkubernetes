@@ -2,15 +2,15 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: esocial-techne-prd
-  namespace: esocial-techne
+  name: mktplace-techne-prd
+  namespace: marketplace-techne
   labels:
-    app: esocial-techne
+    app: marketplace-techne
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: esocial-techne
+      app: marketplace-techne
       tier: frontend
   strategy:
     rollingUpdate:
@@ -20,12 +20,12 @@ spec:
   template:
     metadata:
       labels:
-        app: esocial-techne
+        app: marketplace-techne
         tier: frontend
     spec:
       containers:
-      - image: 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_esocialtechne:esocial-techne-prd
-        name: esocial-techne-prd
+      - image: 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_marketplace:marketplace-techne-prd
+        name: marketplace-techne-prd
         env:
         - name: WORDPRESS_DB_HOST
           value: wptechneprd.cgexaccvir8f.us-east-1.rds.amazonaws.com
@@ -36,11 +36,11 @@ spec:
               key: password
         ports:
         - containerPort: 80
-          name: esocial-techne
+          name: mktplace-techne
         volumeMounts:
-        - name: efs-esocial-techne
-          mountPath: /usr/share/nginx/esocialtechne
+        - name: efs-marketplace-techne
+          mountPath: /usr/share/nginx/marketplace
       volumes:
-      - name: efs-esocial-techne
+      - name: efs-marketplace-techne
         persistentVolumeClaim:
-          claimName: efs-esocial-techne-claim
+          claimName: efs-marketplace-techne-claim

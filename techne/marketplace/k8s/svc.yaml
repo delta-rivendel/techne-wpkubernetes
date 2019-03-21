@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: marketplace-techne
+  namespace: marketplace-techne
+  labels:
+    app: marketplace-techne
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+  selector:
+    app: marketplace-techne
+    tier: frontend
+  type: LoadBalancer

@@ -1,18 +1,35 @@
 # Criação do Secret
 
-kubectl -n intra-techne create secret generic mysql-pass --from-literal=password=L6XF8jRn
+kubectl -n marketplace-techne create secret generic mysql-pass --from-literal=password=L6XF8jRn
 
 
 #Comandos docker
 
 #Build
 
-docker build -t intra-techne-prd .
+docker build -t marketplace-techne-prd .
 
 #Tag
 
-docker tag intra-techne-prd:latest 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_intratechne:intra-techne-prd
+docker tag marketplace-techne-prd:latest 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_marketplace:marketplace-techne-prd
 
 #Push ECR
 
-docker push 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_intratechne:intra-techne-prd
+docker push 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_marketplace:marketplace-techne-prd
+
+
+#DNS CHANGES
+
+blog.techne.com.br CNAME
+blogtechne.com.br CNAME
+OLD=alb-wordpress-techne-826927862.us-east-1.elb.amazonaws.com
+NEW=d27dro0rn07jsx.cloudfront.net
+
+marketplace.techne.com.br CNAME
+OLD=alb-wordpress-techne-826927862.us-east-1.elb.amazonaws.com
+NEW=di0xat5iynzrm.cloudfront.net
+
+
+intra.techne.com.br CNAME
+OLD=alb-wordpress-techne-826927862.us-east-1.elb.amazonaws.com
+NEW=d1097ho8hy2i5z.cloudfront.net

@@ -2,15 +2,15 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: esocial-techne-prd
-  namespace: esocial-techne
+  name: ergonrh-hmg
+  namespace: ergonrh-hmg
   labels:
-    app: esocial-techne
+    app: ergonrh-hmg
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: esocial-techne
+      app: ergonrh-hmg
       tier: frontend
   strategy:
     rollingUpdate:
@@ -20,12 +20,12 @@ spec:
   template:
     metadata:
       labels:
-        app: esocial-techne
+        app: ergonrh-hmg
         tier: frontend
     spec:
       containers:
-      - image: 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_esocialtechne:esocial-techne-prd
-        name: esocial-techne-prd
+      - image: 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_ergonrh:ergonrh-hmg
+        name: ergonrh-hmg
         env:
         - name: WORDPRESS_DB_HOST
           value: wptechneprd.cgexaccvir8f.us-east-1.rds.amazonaws.com
@@ -36,11 +36,11 @@ spec:
               key: password
         ports:
         - containerPort: 80
-          name: esocial-techne
+          name: ergonrh-hmg
         volumeMounts:
-        - name: efs-esocial-techne
-          mountPath: /usr/share/nginx/esocialtechne
+        - name: efs-ergonrh-hmg
+          mountPath: /usr/share/nginx/ergonrh
       volumes:
-      - name: efs-esocial-techne
+      - name: efs-ergonrh-hmg
         persistentVolumeClaim:
-          claimName: efs-esocial-techne-claim
+          claimName: efs-ergonrh-hmg-claim

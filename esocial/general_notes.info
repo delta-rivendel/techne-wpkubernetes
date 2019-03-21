@@ -16,3 +16,10 @@ docker tag esocial-techne-prd:latest 784862261167.dkr.ecr.us-east-1.amazonaws.co
 #Push ECR
 
 docker push 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_esocialtechne:esocial-techne-prd
+
+
+#DNS CHANGES
+
+www.esocialtechne.com.br CNAME
+OLD=alb-wordpress-techne-826927862.us-east-1.elb.amazonaws.com
+NEW=dvogfal4eq6fu.cloudfront.net

@@ -1,0 +1,18 @@
+# Criação do Secret
+
+kubectl -n ergonrh-hmg create secret generic mysql-pass --from-literal=password=L6XF8jRn
+
+
+#Comandos docker
+
+#Build
+
+docker build -t erhonrh-hmg .
+
+#Tag
+
+docker tag ergonrh-hmg:latest 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_ergonrh:ergonrh-hmg
+
+#Push ECR
+
+docker push 784862261167.dkr.ecr.us-east-1.amazonaws.com/wp_ergonrh:ergonrh-hmg
