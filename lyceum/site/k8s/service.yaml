@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lyceum
+  namespace: lyceum
+  labels:
+    app: lyceum
+  annotations:
+    # Note that the backend talks over HTTP.
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # TODO: Fill in with the ARN of your certificate.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:784862261167:certificate/dc9e1c1c-ea85-4607-a3f5-bf7a26aac9a3
+    # Only run SSL on the port named "https" below.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: lyceum
+    - name: https
+      port: 443
+      targetPort: lyceum
+  selector:
+    app: lyceum
+    tier: frontend
+  type: LoadBalancer
